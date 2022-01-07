@@ -15,20 +15,23 @@ class PostController extends BaseController
     {
         $manager = new PostManager(PDOFactory::getInstance());
 
-        $post = $manager->findAllPosts();
+        $posts = $manager->findAllPosts();
 
-        $this->render('Frontend/home', ['francis' => $post], 'le titre de la page');
+        $this->render('Frontend/home', ['francis' => $posts], 'le titre de la page');
     }
 
     /**
-     * @Route(path="/show/{id}-{truc}", name="showOne")
+     * @Route(path="/article/{id}", name="showOne")
      * @param int $id
-     * @param string $truc
      * @return void
      */
-    public function getShow(int $id, string $truc)
+    public function getShow(int $id)
     {
-        $this->renderJSON(['message' => $truc, 'parametre' => $id]);
+        $manager = new PostManager(PDOFactory::getInstance());
+
+        $post = $manager->findOnePost($id);
+
+        $this->render('Frontend/Post/show_post', ['post' => $post], 'le titre de la page');
     }
 
     /**

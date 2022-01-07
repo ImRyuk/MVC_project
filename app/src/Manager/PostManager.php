@@ -12,8 +12,21 @@ class PostManager extends BaseManager
         $query = 'SELECT * FROM Post';
         $stmnt = $this->pdo->query($query);
 
-        $result = $stmnt->fetchAll(\PDO::FETCH_ASSOC)[0];
+        $results = $stmnt->fetchAll();
 
-        return new Post($result);
+        $postArray = [];
+
+        foreach ($results as $post) {
+            array_push($postArray, new Post($post));
+        }
+        return $postArray;
+    }
+
+    public function findOnePost(int $id)
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM Post WHERE id=:id");
+        $stmt->execute(['id' => $id]);
+        $user = $stmt->fetch();
+        return new Post($user);
     }
 }

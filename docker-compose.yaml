@@ -16,12 +16,12 @@ services:
     db:
         image: 'mariadb:10.6.4'
         restart: always
-        environment:
+        # environment:
             # See .env file
             # MYSQL_DATABASE: data
             # MYSQL_ROOT_PASSWORD: password
-            MYSQL_USER: user
-            MYSQL_PASSWORD: password
+            # MYSQL_USER: user
+            # MYSQL_PASSWORD: password
         env_file:
             - .env
             # - .env.local
