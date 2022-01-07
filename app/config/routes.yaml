@@ -3,7 +3,7 @@ homePage:
     controller: \App\Controller\PostController
     action: home
 
-showOne:
+showOnePost:
     path: /article/{id}
     controller: \App\Controller\PostController
     action: show
@@ -12,3 +12,13 @@ showTest:
     path: /show
     controller: \App\Controller\PostController
     action: showTest
+
+listUsers:
+    path: /users
+    controller: \App\Controller\UserController
+    action: users
+
+showOneUser:
+    path: /users/{id}
+    controller: \App\Controller\UserController
+    action: user

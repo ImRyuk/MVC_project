@@ -21,7 +21,7 @@ class PostController extends BaseController
     }
 
     /**
-     * @Route(path="/article/{id}", name="showOne")
+     * @Route(path="/article/{id}", name="showOnePost")
      * @param int $id
      * @return void
      */
@@ -32,14 +32,5 @@ class PostController extends BaseController
         $post = $manager->findOnePost($id);
 
         $this->render('Frontend/Post/show_post', ['post' => $post], 'le titre de la page');
-    }
-
-    /**
-     * @Route(path="/show")
-     * @return void
-     */
-    public function getShowTest()
-    {
-        echo 'je suis bien la bonne méthode';
     }
 }

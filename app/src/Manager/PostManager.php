@@ -9,7 +9,7 @@ class PostManager extends BaseManager
 {
     public function findAllPosts()
     {
-        $query = 'SELECT * FROM Post';
+        $query = 'SELECT * FROM posts';
         $stmnt = $this->pdo->query($query);
 
         $results = $stmnt->fetchAll();
@@ -24,9 +24,9 @@ class PostManager extends BaseManager
 
     public function findOnePost(int $id)
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM Post WHERE id=:id");
+        $stmt = $this->pdo->prepare("SELECT * FROM posts WHERE id=:id");
         $stmt->execute(['id' => $id]);
-        $user = $stmt->fetch();
-        return new Post($user);
+        $post = $stmt->fetch();
+        return new Post($post);
     }
 }
