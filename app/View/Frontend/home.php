@@ -2,12 +2,7 @@
 
 
 <?php
-/** @var $posts Post */
+/** @var $francis \App\Entity\Post */
 
-use App\Entity\Post;
-foreach ($posts as $post){
-
-echo $post->getTitle();
-}
 
 ?>
