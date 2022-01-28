@@ -18,7 +18,15 @@ showOneUser:
     controller: \App\Controller\UserController
     action: user
 
-deleteOneUser:
-    path: /article/delete/{id}
+
+# Admin routes
+
+listAdminPosts:
+    path: dashboard/article
+    controller: \App\Controller\PostController
+    action: AdminPosts
+
+deleteOnePost:
+    path: /deletePost/{id}
     controller: \App\Controller\PostController
     action: delete

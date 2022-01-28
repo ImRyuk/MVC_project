@@ -35,8 +35,25 @@ class PostController extends BaseController
         $this->render('Frontend/Post/show_post', ['post' => $post], 'le titre de la page');
     }
 
+    /** ADMIN SECTION */
+
     /**
-     * @Route(path="/article/delete/{id}", name="deleteOnePost")
+     * @Route(path="/dashboard/article", name="showAdminPosts")
+     * @return void
+     */
+    public function getAdminPosts()
+    {
+        $manager = new PostManager(PDOFactory::getInstance());
+
+        $posts = $manager->findAllPosts();
+
+        $this->render('Frontend/Post/Dashboard/show_all', ['posts' => $posts], 'Posts list');
+    }
+
+    /** ADMIN SECTION */
+
+    /**
+     * @Route(path="/deletePost/{id}", name="deleteOnePost")
      * @param int $id
      * @return void
      */
@@ -44,8 +61,14 @@ class PostController extends BaseController
     {
         $manager = new PostManager(PDOFactory::getInstance());
 
-        $manager->delete($id);
+        $message = $manager->delete($id);
 
-        $this->render('Frontend/Post/test', ['post' => $id], 'Utilisateur: ');
+        /** Redirect */
+
+        $manager = new PostManager(PDOFactory::getInstance());
+
+        $posts = $manager->findAllPosts();
+
+        $this->render('Frontend/Post/Dashboard/show_all', ['posts' => $posts, 'message' => $message], 'Posts list');
     }
 }

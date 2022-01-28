@@ -35,8 +35,7 @@ class PostManager extends BaseManager
         $stmt = $this->pdo->prepare("DELETE FROM posts WHERE id=:id");
         $stmt->bindParam(':id', $id);
         $stmt->execute();
-        var_dump($stmt->rowCount());
-        if($stmt === true) {
+        if($stmt->rowCount() > 0) {
             var_dump("Data deleted successfully");
             return "Data deleted successfully";
         } else {
