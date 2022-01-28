@@ -12,7 +12,7 @@
                   <div class="card-body">
                     <h5 class="card-title"><?= $post->getTitle();?></h5>
                     <p class="card-text"><?= substr($post->getContent(), -150);?></p>
-                    <a href="#" class="btn btn-primary">Lire l'article</a>
+                    <a href="/article/<?= $post->getId();?>" class="btn btn-primary">Lire l'article</a>
                   </div>
             </div>
             <?php endforeach ?>

@@ -35,6 +35,13 @@ CREATE TABLE `posts` (
   `authorId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Déchargement des données de la table `posts`
+--
+
+INSERT INTO `posts` (`id`, `createdAt`, `title`, `content`, `authorId`) VALUES
+    (10, '2022-01-28 15:14:40', 'Post 1', 'post test', 6);
+
 -- --------------------------------------------------------
 
 --
