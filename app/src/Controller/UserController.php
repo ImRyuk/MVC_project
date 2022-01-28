@@ -7,6 +7,7 @@ use App\Manager\UserManager;
 
 class UserController extends BaseController
 {
+    
     /**
      * @Route(path="/users", name="listUsers")
      * @return void
@@ -32,5 +33,39 @@ class UserController extends BaseController
         $user = $manager->findById($id);
 
         $this->render('Frontend/User/show_user', ['user' => $user], 'Utilisateur: ' . $user->getFirstName());
+    }
+
+    /**
+     * @Route(path="/register", name="register")
+     * @return void
+     */
+    public function getRegister()
+    {
+        $this->render('Frontend/Auth/register', [], 'Register: ');
+    }
+
+    /**
+     * @Route(path="/postRegister", name="postRegister")
+     * @return void
+     */
+    public function postRegister()
+    {
+        var_dump($_POST);
+        $manager = new UserManager(PDOFactory::getInstance());
+
+        $manager->registerUser($_POST['email'], $_POST['password'], $_POST['firstName'], $_POST['lastName'], 0);
+
+        $this->render('Frontend/Auth/register', [], 'Register: ');
+    }
+
+    /**
+     * @Route(path="/login", name="login")
+     * @return void
+     */
+    public function getLogin()
+    {
+        $user = 'user';
+
+        $this->render('Frontend/Auth/login', ['user' => $user], 'Login: ');
     }
 }

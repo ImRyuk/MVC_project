@@ -22,3 +22,20 @@ deleteOneUser:
     path: /article/delete/{id}
     controller: \App\Controller\PostController
     action: delete
+
+# Auth routes:
+
+login:
+    path: /login
+    controller: \App\Controller\UserController
+    action: login
+
+register:
+    path: /register
+    controller: \App\Controller\UserController
+    action: register
+
+postRegister:
+    path: /postRegister
+    controller: \App\Controller\UserController
+    action: postRegister
