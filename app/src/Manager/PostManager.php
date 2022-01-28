@@ -22,11 +22,26 @@ class PostManager extends BaseManager
         return $postArray;
     }
 
-    public function findOnePost(int $id)
+    public function findById(int $id)
     {
         $stmt = $this->pdo->prepare("SELECT * FROM posts WHERE id=:id");
         $stmt->execute(['id' => $id]);
         $post = $stmt->fetch();
         return new Post($post);
+    }
+
+    public function delete(int $id)
+    {
+        $stmt = $this->pdo->prepare("DELETE FROM posts WHERE id=:id");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        var_dump($stmt->rowCount());
+        if($stmt === true) {
+            var_dump("Data deleted successfully");
+            return "Data deleted successfully";
+        } else {
+            var_dump("FAILED to execute DELETE query");
+            return "FAILED to execute DELETE query";
+        }
     }
 }

@@ -30,7 +30,7 @@ class UserManager extends BaseManager
         return new User($user);
     }
 
-    public function deleteOneUser(int $id)
+    public function delete(int $id)
     {
         $stmt = $this->pdo->prepare("DELETE FROM users WHERE id=:id");
         $stmt->execute(['id' => $id]);

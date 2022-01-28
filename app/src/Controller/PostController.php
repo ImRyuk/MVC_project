@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Core\Factory\PDOFactory;
+use App\Entity\Post;
 use App\Manager\PostManager;
 
 class PostController extends BaseController
@@ -17,7 +18,7 @@ class PostController extends BaseController
 
         $posts = $manager->findAllPosts();
 
-        $this->render('Frontend/home', ['francis' => $posts], 'le titre de la page');
+        $this->render('Frontend/home', ['$posts' => $posts], 'le titre de la page');
     }
 
     /**
@@ -29,8 +30,22 @@ class PostController extends BaseController
     {
         $manager = new PostManager(PDOFactory::getInstance());
 
-        $post = $manager->findOnePost($id);
+        $post = $manager->findById($id);
 
         $this->render('Frontend/Post/show_post', ['post' => $post], 'le titre de la page');
+    }
+
+    /**
+     * @Route(path="/article/delete/{id}", name="deleteOnePost")
+     * @param int $id
+     * @return void
+     */
+    public function getDeletePost(int $id)
+    {
+        $manager = new PostManager(PDOFactory::getInstance());
+
+        $manager->delete($id);
+
+        $this->render('Frontend/Post/test', ['post' => $id], 'Utilisateur: ');
     }
 }

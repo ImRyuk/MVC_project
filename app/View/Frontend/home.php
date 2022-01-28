@@ -3,6 +3,6 @@
 
 <?php
 /** @var $francis \App\Entity\Post */
-echo $francis->getTitle();
+
 
 ?>

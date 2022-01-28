@@ -8,11 +8,6 @@ showOnePost:
     controller: \App\Controller\PostController
     action: show
 
-showTest:
-    path: /show
-    controller: \App\Controller\PostController
-    action: showTest
-
 listUsers:
     path: /users
     controller: \App\Controller\UserController
@@ -22,3 +17,8 @@ showOneUser:
     path: /users/{id}
     controller: \App\Controller\UserController
     action: user
+
+deleteOneUser:
+    path: /article/delete/{id}
+    controller: \App\Controller\PostController
+    action: delete
