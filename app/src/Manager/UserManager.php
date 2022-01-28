@@ -4,6 +4,8 @@ namespace App\Manager;
 
 use App\Core\Factory\PDOFactory;
 use App\Entity\User;
+use Error;
+use ErrorException;
 
 class UserManager extends BaseManager
 {
@@ -36,5 +38,57 @@ class UserManager extends BaseManager
         $stmt->execute(['id' => $id]);
         $user = $stmt->fetch();
         return new User($user);
+    }
+
+    public function login($email, $password)
+	{
+        $existingUser = $this->verifyMail($email);
+
+        if($existingUser){
+            // hashing and veryfying both password
+            $stmt = $this->pdo->prepare('SELECT password from users WHERE email=:email');
+            $stmt->execute(['email' => $email]);
+            $user_pwd = $stmt->fetch();
+            $user_pwd = $user_pwd[0];
+            if (password_verify($password, $user_pwd)) {
+                return "You are logged in!";
+            }
+            else {
+                throw new ErrorException("Password doesnt match!");
+            }
+        } else {
+            throw new ErrorException("No account exist with this email!");
+        }
+	}
+
+    public function register($email, $password, $firstName, $lastName, $isAdmin)
+	{
+        $existingUser = $this->verifyMail($email);
+
+        if(!$existingUser){
+            $pass_hache = password_hash($password, PASSWORD_DEFAULT);
+            $stmt = $this->pdo->prepare('INSERT INTO users(email, password, firstName, lastName, admin ) VALUES(?, ?, ?, ?, ?)');
+            $stmt->execute(array($email, $pass_hache, $firstName, $lastName, $isAdmin));
+
+            if($stmt->rowCount() > 0) {
+                return "User successfully created";
+            } else {
+                return "FAILED to execute INSERT query";
+            }
+        } else {
+            throw new ErrorException("Email already exist!");
+        }
+	}
+
+    public function verifyMail($email): bool
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE email=:email");
+        $stmt->execute(['email' => $email]);
+        $user = $stmt->fetch();
+        if($user){
+            return true;
+        } else {
+            return false;
+        }
     }
 }

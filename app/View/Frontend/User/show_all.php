@@ -11,7 +11,7 @@
             <th scope="col">#</th>
             <th scope="col">Prénom</th>
             <th scope="col">Nom</th>
-            <th scope="col">Mail</th>
+            <th scope="col">Email</th>
             <th scope="col">Admin?</th>
         </tr>
         </thead>
@@ -21,7 +21,7 @@
                 <th scope="row"><?= $user->getId(); ?></th>
                 <td><?= $user->getFirstName(); ?></td>
                 <td><?= $user->getLastName(); ?></td>
-                <td><?= $user->getMail(); ?></td>
+                <td><?= $user->getEmail(); ?></td>
                 <td>
                 <?php if($user->isAdmin()) : ?>
                     Oui
