@@ -7,7 +7,6 @@ use App\Manager\UserManager;
 
 class UserController extends BaseController
 {
-    
     /**
      * @Route(path="/users", name="listUsers")
      * @return void
@@ -17,6 +16,7 @@ class UserController extends BaseController
         $manager = new UserManager(PDOFactory::getInstance());
 
         $users = $manager->findAllUsers();
+ 
 
         $this->render('Frontend/User/show_all', ['users' => $users], 'Liste des utilisateurs');
     }

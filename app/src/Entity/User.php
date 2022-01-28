@@ -7,8 +7,8 @@ class User extends BaseEntity
     private int $id;
     private string $firstName;
     private string $lastName;
-    private string $email;
     private string $password;
+    private string $email;
     private bool $admin = false;
 
     /**
@@ -77,7 +77,7 @@ class User extends BaseEntity
      * @param string $email
      * @return User
      */
-    public function setMail(string $email): self
+    public function setEmail(string $email): self
     {
         $this->email = $email;
         return $this;
