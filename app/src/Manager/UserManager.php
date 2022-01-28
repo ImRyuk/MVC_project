@@ -4,6 +4,8 @@ namespace App\Manager;
 
 use App\Core\Factory\PDOFactory;
 use App\Entity\User;
+use Error;
+use ErrorException;
 
 class UserManager extends BaseManager
 {
@@ -40,16 +42,34 @@ class UserManager extends BaseManager
 
     public function registerUser($email, $password, $firstName, $lastName, $isAdmin)
 	{
-        $pass_hache = password_hash($password, PASSWORD_DEFAULT);
-        $stmt = $this->pdo->prepare('INSERT INTO users(email, password, firstName, lastName, admin ) VALUES(?, ?, ?, ?, ?)');
-        $stmt->execute(array($email, $pass_hache, $firstName, $lastName, $isAdmin));
+        $existingUser = $this->verifyMail($email);
 
-        if($stmt->rowCount() > 1) {
-            var_dump("User successfully created");
-            return "User successfully created";
+        if(!$existingUser){
+            $pass_hache = password_hash($password, PASSWORD_DEFAULT);
+            $stmt = $this->pdo->prepare('INSERT INTO users(email, password, firstName, lastName, admin ) VALUES(?, ?, ?, ?, ?)');
+            $stmt->execute(array($email, $pass_hache, $firstName, $lastName, $isAdmin));
+
+            if($stmt->rowCount() > 0) {
+                return "User successfully created";
+            } else {
+                return "FAILED to execute INSERT query";
+            }
         } else {
-            var_dump("FAILED to execute INSERT query");
-            return "FAILED to execute INSERT query";
+            throw new ErrorException("Email already exist!");
         }
+        
+       
 	}
+
+    public function verifyMail($email): bool
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE email=:email");
+        $stmt->execute(['email' => $email]);
+        $user = $stmt->fetch();
+        if($user){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

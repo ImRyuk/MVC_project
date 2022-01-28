@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Core\Factory\PDOFactory;
 use App\Manager\UserManager;
+use ErrorException;
 
 class UserController extends BaseController
 {
@@ -41,7 +42,7 @@ class UserController extends BaseController
      */
     public function getRegister()
     {
-        $this->render('Frontend/Auth/register', [], 'Register: ');
+        $this->render('Frontend/Auth/register', ['message' => null], 'Register: ');
     }
 
     /**
@@ -50,12 +51,14 @@ class UserController extends BaseController
      */
     public function postRegister()
     {
-        var_dump($_POST);
-        $manager = new UserManager(PDOFactory::getInstance());
-
-        $manager->registerUser($_POST['email'], $_POST['password'], $_POST['firstName'], $_POST['lastName'], 0);
-
-        $this->render('Frontend/Auth/register', [], 'Register: ');
+        try {
+            $manager = new UserManager(PDOFactory::getInstance());
+            $message = $manager->registerUser($_POST['email'], $_POST['password'], $_POST['firstName'], $_POST['lastName'], 0);
+        } catch (ErrorException $error) {
+            $message = $error->getMessage();
+        }
+        
+        $this->render('Frontend/Auth/register', ['message' => $message], 'Register: ');
     }
 
     /**
@@ -63,6 +66,17 @@ class UserController extends BaseController
      * @return void
      */
     public function getLogin()
+    {
+        $user = 'user';
+
+        $this->render('Frontend/Auth/login', ['user' => $user], 'Login: ');
+    }
+
+    /**
+     * @Route(path="/postLogin", name="login")
+     * @return void
+     */
+    public function postLogin()
     {
         $user = 'user';
 

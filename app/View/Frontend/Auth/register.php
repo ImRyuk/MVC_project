@@ -1,6 +1,10 @@
+<?php
+/** @var $message string */
+?>
+
 <div class="container">
-        <h2>Register</h2>
-        <p>Please fill this form to create an account.</p>
+    <div>
+        <h2 class="text-center">Register</h2>
         <form action="/register" method="POST">
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Email address</label>
@@ -18,6 +22,12 @@
                 <label for="InputLastName1" class="form-label">Last Name</label>
                 <input type="text" class="form-control" name="lastName" id="InputLastName1">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary text-center">Submit</button>
+            </div>
         </form>
+        <?php if($message) : ?>
+            <p style="color:red"><?= $message ?></p>
+        <?php endif; ?>
+    </div>
 </div>    
