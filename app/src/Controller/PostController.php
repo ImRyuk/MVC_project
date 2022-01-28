@@ -18,7 +18,7 @@ class PostController extends BaseController
 
         $posts = $manager->findAllPosts();
 
-        $this->render('Frontend/home', ['$posts' => $posts], 'le titre de la page');
+        $this->render('Frontend/home', ['posts' => $posts], 'le titre de la page');
     }
 
     /**
