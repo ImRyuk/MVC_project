@@ -53,7 +53,7 @@ class UserController extends BaseController
     {
         try {
             $manager = new UserManager(PDOFactory::getInstance());
-            $message = $manager->registerUser($_POST['email'], $_POST['password'], $_POST['firstName'], $_POST['lastName'], 0);
+            $message = $manager->register($_POST['email'], $_POST['password'], $_POST['firstName'], $_POST['lastName'], 0);
         } catch (ErrorException $error) {
             $message = $error->getMessage();
         }
@@ -67,19 +67,22 @@ class UserController extends BaseController
      */
     public function getLogin()
     {
-        $user = 'user';
-
-        $this->render('Frontend/Auth/login', ['user' => $user], 'Login: ');
+        $this->render('Frontend/Auth/login', ['message' => null], 'Login: ');
     }
 
     /**
-     * @Route(path="/postLogin", name="login")
+     * @Route(path="/postLogin", name="postLogin")
      * @return void
      */
     public function postLogin()
     {
-        $user = 'user';
-
-        $this->render('Frontend/Auth/login', ['user' => $user], 'Login: ');
+        try {
+            $manager = new UserManager(PDOFactory::getInstance());
+            $message = $manager->login($_POST['email'], $_POST['password']);
+        } catch (ErrorException $error) {
+            $message = $error->getMessage();
+        }
+        
+        $this->render('Frontend/Auth/login', ['message' => $message], 'Login: ');
     }
 }

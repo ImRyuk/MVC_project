@@ -30,6 +30,11 @@ login:
     controller: \App\Controller\UserController
     action: login
 
+postLogin:
+    path: /login
+    controller: \App\Controller\UserController
+    action: postLogin
+
 register:
     path: /register
     controller: \App\Controller\UserController

@@ -40,7 +40,28 @@ class UserManager extends BaseManager
         return new User($user);
     }
 
-    public function registerUser($email, $password, $firstName, $lastName, $isAdmin)
+    public function login($email, $password)
+	{
+        $existingUser = $this->verifyMail($email);
+
+        if($existingUser){
+            // hashing and veryfying both password
+            $stmt = $this->pdo->prepare('SELECT password from users WHERE email=:email');
+            $stmt->execute(['email' => $email]);
+            $user_pwd = $stmt->fetch();
+            $user_pwd = $user_pwd[0];
+            if (password_verify($password, $user_pwd)) {
+                return "You are logged in!";
+            }
+            else {
+                throw new ErrorException("Password doesnt match!");
+            }
+        } else {
+            throw new ErrorException("No account exist with this email!");
+        }
+	}
+
+    public function register($email, $password, $firstName, $lastName, $isAdmin)
 	{
         $existingUser = $this->verifyMail($email);
 
@@ -57,8 +78,6 @@ class UserManager extends BaseManager
         } else {
             throw new ErrorException("Email already exist!");
         }
-        
-       
 	}
 
     public function verifyMail($email): bool
