@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Core\Factory\PDOFactory;
 use App\Entity\Post;
+use App\Entity\Comment;
 use App\Manager\PostManager;
 
 class PostController extends BaseController

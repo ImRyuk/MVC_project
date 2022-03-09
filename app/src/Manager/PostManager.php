@@ -44,4 +44,12 @@ class PostManager extends BaseManager
             return "FAILED to execute DELETE query";
         }
     }
+
+    public function getComments(int $id)
+    {
+        $stmt = $this->pdo->query("SELECT * FROM comments WHERE postId=:id");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
 }
