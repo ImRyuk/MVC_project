@@ -21,16 +21,16 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Accueil</a>
+                    <a class="nav-link active" aria-current="page" href="/">Accueil</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Mon Compte</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Liste des utilisateurs</a>
+                    <a class="nav-link" href="/users">Liste des utilisateurs</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Écrire un post</a>
+                    <a class="nav-link" href="/posts">Écrire un post</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">A propos</a>
@@ -38,10 +38,10 @@
             </ul>
             <ul class="navbar-nav mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="btn btn-primary" href="#">Se connecter</a>
+                    <a class="btn btn-primary" href="/login">Se connecter</a>
                 </li>
                 <li class="nav-item ms-4">
-                    <a class="btn btn-warning" href="#">S'inscrire</a>
+                    <a class="btn btn-warning" href="/register">S'inscrire</a>
                 </li>
             </ul>
         </div>
